@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpes · Julio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0E0D0B;
+  --paper: #F4F0E8;
+  --cream: #EDE8DC;
+  --stone: #B8B2A6;
+  --mist: #D4CFC4;
+  --glacier: #4A7FA5;
+  --glacier-light: #C8DCE8;
+  --summit: #1A3A52;
+  --snow: #FFFFFF;
+  --amber: #C07A2A;
+  --amber-light: #F0DFC0;
+  --danger: #8B2A2A;
+  --success: #2A5C3A;
+  --success-light: #D0E8D8;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: var(--summit);
+}
+.masthead-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 30%, rgba(74,127,165,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(26,58,82,0.8) 0%, transparent 60%),
+    linear-gradient(165deg, #0A1E2E 0%, #1A3A52 40%, #0D2438 100%);
+}
+.topo-lines {
+  position: absolute; inset: 0; opacity: 0.06;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(200,220,232,0.8) 38px, rgba(200,220,232,0.8) 39px),
+    repeating-linear-gradient(90deg, transparent, transparent 38px, rgba(200,220,232,0.4) 38px, rgba(200,220,232,0.4) 39px);
+}
+.mountain-silhouette { position: absolute; bottom: 0; left: 0; right: 0; height: 55%; opacity: 0.12; }
+.masthead-content { position: relative; z-index: 2; padding: 60px 60px 70px; max-width: 960px; }
+.eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--glacier-light); opacity: 0.8;
+  margin-bottom: 20px; animation: fadeUp .8s ease both;
+}
+.masthead h1 {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 10vw, 130px);
+  line-height: .92; color: var(--snow); letter-spacing: .01em;
+  margin-bottom: 28px; animation: fadeUp .8s .1s ease both;
+}
+.masthead h1 span { color: var(--glacier-light); opacity: 0.65; }
+.masthead-sub {
+  font-size: 16px; color: rgba(200,220,232,0.7); font-style: italic;
+  line-height: 1.7; max-width: 520px; animation: fadeUp .8s .2s ease both;
+}
+.team-pills { display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap; animation: fadeUp .8s .3s ease both; }
+.team-pill {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; padding: 6px 14px; border: 1px solid rgba(200,220,232,0.3);
+  border-radius: 2px; color: rgba(200,220,232,0.8); background: rgba(200,220,232,0.06);
+}
+.scroll-hint {
+  position: absolute; bottom: 32px; right: 60px; z-index: 2;
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em;
+  text-transform: uppercase; color: rgba(200,220,232,0.35);
+  display: flex; align-items: center; gap: 10px; animation: fadeUp .8s .5s ease both;
+}
+.scroll-hint::before {
+  content: ''; display: block; width: 1px; height: 40px;
+  background: rgba(200,220,232,0.2); animation: pulse 2s ease infinite;
+}
+
+/* ── TAB NAV ── */
+.tab-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--summit);
+  border-bottom: 1px solid rgba(200,220,232,0.12);
+  display: flex; gap: 0; overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; padding: 16px 28px; border: none; background: none;
+  color: rgba(200,220,232,0.45); cursor: pointer; white-space: nowrap;
+  border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+  flex-shrink: 0;
+}
+.tab-btn:hover { color: rgba(200,220,232,0.75); }
+.tab-btn.active { color: var(--glacier-light); border-bottom-color: var(--glacier); }
+
+/* ── TAB PANELS ── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── SHARED LAYOUT ── */
+main { max-width: 1080px; margin: 0 auto; padding: 0 40px 120px; }
+
+.section-intro {
+  padding: 80px 0 20px;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 40px;
+  align-items: end; border-bottom: 1px solid var(--mist); margin-bottom: 60px;
+}
+.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+.section-num { font-family: 'Bebas Neue', sans-serif; font-size: 96px; line-height: 1; color: var(--mist); margin-top: -12px; }
+.section-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 4vw, 52px); color: var(--summit); line-height: 1.05; margin-bottom: 10px; }
+.section-dates { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--glacier); letter-spacing: .08em; }
+
+/* ── DAYS ── */
+.days-grid { display: flex; flex-direction: column; gap: 0; }
+.day-row {
+  display: grid; grid-template-columns: 110px 1px 1fr; gap: 0 32px;
+  position: relative; opacity: 0; transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.day-row.visible { opacity: 1; transform: translateY(0); }
+.day-meta { padding: 28px 0; text-align: right; }
+.day-date { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--summit); line-height: 1; }
+.day-weekday { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); margin-top: 3px; }
+.day-who { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; margin-top: 8px; padding: 3px 6px; border-radius: 2px; display: inline-block; }
+.who-ab  { background: var(--amber-light); color: var(--amber); }
+.who-all { background: var(--glacier-light); color: var(--summit); }
+.who-rest{ background: var(--cream); color: var(--stone); }
+.timeline-line { background: var(--mist); position: relative; width: 1px; }
+.timeline-dot { position: absolute; top: 36px; left: 50%; transform: translateX(-50%); width: 9px; height: 9px; border-radius: 50%; background: var(--paper); border: 2px solid var(--mist); }
+.timeline-dot.summit-dot { background: var(--glacier); border-color: var(--glacier); width: 13px; height: 13px; top: 32px; box-shadow: 0 0 0 4px rgba(74,127,165,0.15); }
+.timeline-dot.rest-dot { background: var(--cream); border-color: var(--stone); }
+.day-content { padding: 24px 0 24px; border-bottom: 1px solid var(--cream); }
+.day-row:last-child .day-content { border-bottom: none; }
+.day-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+.day-desc { font-size: 14px; color: #4A4640; line-height: 1.75; }
+.alt-tag { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 2px; margin-top: 10px; letter-spacing: .04em; }
+.alt-4k   { background: #E6F1FB; color: #0C447C; }
+.alt-35k  { background: #EAF3DE; color: #3B6D11; }
+.alt-low  { background: var(--cream); color: var(--stone); }
+.alt-rest { background: var(--cream); color: var(--stone); }
+
+/* ── BLOQUE III SLIDE ── */
+.b3-slide-wrapper { position: relative; overflow: hidden; margin-bottom: 20px; }
+.b3-slide-track { display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+.b3-slide-pane { min-width: 50%; padding: 0 0 0 0; }
+.b3-slide-pane.pane-a  { background: transparent; }
+.b3-slide-pane.pane-ap { background: transparent; }
+
+.b3-toggle {
+  display: flex; align-items: stretch; margin-bottom: 32px;
+  border: 1.5px solid var(--mist); border-radius: 3px; overflow: hidden;
+}
+.b3-toggle-btn {
+  flex: 1; padding: 14px 20px; border: none; background: var(--cream);
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; cursor: pointer; color: var(--stone);
+  transition: all .2s; border-right: 1px solid var(--mist);
+}
+.b3-toggle-btn:last-child { border-right: none; }
+.b3-toggle-btn.active-a  { background: var(--glacier); color: var(--snow); }
+.b3-toggle-btn.active-ap { background: var(--summit); color: var(--glacier-light); }
+
+.split-view {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border: 1.5px solid var(--mist); border-radius: 3px; overflow: hidden;
+}
+.split-pane { padding: 28px; }
+.split-pane.sp-a  { background: var(--paper); border-right: 1px solid var(--mist); }
+.split-pane.sp-ap { background: #F0EDE4; }
+.split-pane-header {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .18em;
+  text-transform: uppercase; margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--mist);
+}
+.sp-a  .split-pane-header { color: var(--glacier); }
+.sp-ap .split-pane-header { color: var(--amber); }
+
+/* Shared day rows inside split */
+.split-day { padding: 14px 0; border-bottom: 1px solid var(--cream); }
+.split-day:last-child { border: none; }
+.split-day-date { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--summit); line-height: 1; }
+.split-day-label { font-size: 13px; font-weight: 700; color: var(--ink); margin: 4px 0 5px; }
+.split-day-desc { font-size: 12px; color: #4A4640; line-height: 1.65; }
+.split-alt { display: inline-block; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 2px; margin-top: 8px; }
+
+.split-view.three-col { grid-template-columns: 1fr 1fr 1fr; }
+.split-pane.sp-b { background: #F0EDE4; border-right: 1px solid var(--mist); }
+.sp-b .split-pane-header { color: var(--success); }
+.sp-b .split-note { background: var(--success-light); color: var(--success); border-left: 3px solid var(--success); }
+
+.lodging-options { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+.lodge-card { border-radius: 3px; padding: 16px 18px; border: 1px solid var(--mist); }
+.lodge-card h5 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.lodge-card p { font-size: 12px; color: #4A4640; line-height: 1.65; }
+.lodge-card .lodge-alt { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; margin-bottom: 6px; display: block; }
+.lc-primary { background: var(--glacier-light); border-color: var(--glacier); }
+.lc-primary h5 { color: var(--glacier); }
+.lc-secondary { background: #EAF3DE; border-color: var(--success); }
+.lc-secondary h5 { color: var(--success); }
+.lc-fallback { background: var(--cream); border-color: var(--stone); }
+.lc-fallback h5 { color: var(--stone); }
+.lodge-note { font-size: 12px; color: var(--stone); font-style: italic; padding: 10px 14px; background: var(--cream); border-radius: 3px; margin-top: 4px; }
+
+@media (max-width: 760px) {
+  .split-view.three-col { grid-template-columns: 1fr; }
+  .lodging-options { grid-template-columns: 1fr; }
+}
+.split-diff-row:last-child { border: none; }
+.split-diff-label { color: #6A6460; }
+.split-diff-val { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: var(--ink); }
+
+.split-note {
+  margin-top: 16px; padding: 11px 14px; font-size: 12px; line-height: 1.65;
+  font-style: italic; border-radius: 2px;
+}
+.sp-a  .split-note { background: var(--glacier-light); color: var(--summit); border-left: 3px solid var(--glacier); }
+.sp-ap .split-note { background: var(--amber-light); color: #5A3A10; border-left: 3px solid var(--amber); }
+
+.activation-box {
+  margin-top: 28px; padding: 20px 24px;
+  border: 1px solid var(--amber); border-radius: 3px; background: rgba(192,122,42,0.04);
+}
+.activation-box h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+.activation-box p { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+/* ── TRACK / RUTA INFO ── */
+.route-block {
+  margin-top: 14px;
+  border: 1px solid var(--mist);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.route-header {
+  background: var(--cream);
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--stone);
+  border-bottom: 1px solid var(--mist);
+}
+.route-header .rh-type-walk { color: var(--glacier); }
+.route-header .rh-type-drive { color: var(--amber); }
+.route-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.route-stat {
+  padding: 10px 14px;
+  border-right: 1px solid var(--mist);
+}
+.route-stat:last-child { border-right: none; }
+.rs-val { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--ink); }
+.rs-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); margin-top: 2px; }
+.route-times {
+  padding: 10px 14px;
+  border-top: 1px solid var(--mist);
+  font-size: 12px;
+  color: #4A4640;
+  line-height: 1.7;
+}
+.route-times strong { color: var(--ink); }
+.route-links {
+  padding: 8px 14px;
+  border-top: 1px solid var(--mist);
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.route-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--glacier);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity .15s;
+}
+.route-link:hover { opacity: .7; }
+.route-link::before { content: '↗'; font-size: 11px; }
+.route-link.rl-drive { color: var(--amber); }
+@media (max-width: 760px) {
+  .route-stats { grid-template-columns: 1fr 1fr; }
+}
+.summary-section { margin-top: 60px; padding-top: 60px; border-top: 2px solid var(--ink); }
+.summary-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 4vw, 44px); color: var(--summit); margin-bottom: 36px; letter-spacing: .02em; }
+.summary-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--mist); border: 1px solid var(--mist); margin-bottom: 40px; }
+.summary-cell { background: var(--paper); padding: 24px 28px; }
+.summary-cell .sv { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--summit); line-height: 1; }
+.summary-cell .sd { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); letter-spacing: .06em; text-transform: uppercase; margin-top: 4px; }
+
+.principle-list { display: flex; flex-direction: column; gap: 0; }
+.principle { display: grid; grid-template-columns: 32px 1fr; gap: 16px; align-items: start; padding: 20px 0; border-bottom: 1px solid var(--cream); }
+.principle:last-child { border: none; }
+.principle-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--mist); line-height: 1; padding-top: 2px; }
+.principle-text { font-size: 15px; line-height: 1.7; color: var(--ink); }
+.principle-text strong { font-weight: 700; }
+
+/* Plan comparison table */
+.comp-section { margin-top: 70px; padding-top: 50px; border-top: 1px solid var(--mist); }
+.comp-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--summit); margin-bottom: 28px; }
+
+.comp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.comp-table th {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; padding: 10px 14px; text-align: left;
+  border-bottom: 2px solid var(--ink); color: var(--stone);
+}
+.comp-table th:nth-child(2) { color: var(--glacier); }
+.comp-table th:nth-child(3) { color: var(--amber); }
+.comp-table td { padding: 11px 14px; border-bottom: 1px solid var(--cream); color: var(--ink); vertical-align: top; line-height: 1.5; }
+.comp-table td:first-child { color: var(--stone); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .04em; }
+.win-a  { font-weight: 700; color: var(--glacier) !important; }
+.win-ap { font-weight: 700; color: var(--amber) !important; }
+
+/* Bar charts */
+.bar-section { margin-top: 50px; }
+.bar-section h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); margin-bottom: 20px; }
+.bar-group { margin-bottom: 24px; }
+.bar-plan-label { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+.bar-row { display: grid; grid-template-columns: 140px 1fr 40px; gap: 10px; align-items: center; margin-bottom: 8px; }
+.bar-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); letter-spacing: .04em; }
+.bar-track { height: 8px; background: var(--cream); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 1s cubic-bezier(.4,0,.2,1); }
+.bar-val { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); text-align: right; }
+.bf-fisico   { background: linear-gradient(90deg, #4A7FA5, #2A5C7A); }
+.bf-mental   { background: linear-gradient(90deg, #C07A2A, #8A5010); }
+.bf-acclim   { background: linear-gradient(90deg, #2A5C3A, #1A3C28); }
+
+/* ── ENTRENAMIENTO TAB ── */
+.train-intro { padding: 60px 0 40px; border-bottom: 1px solid var(--mist); margin-bottom: 50px; }
+.train-intro h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 60px); color: var(--summit); margin-bottom: 16px; }
+.train-intro p { font-size: 15px; color: #4A4640; line-height: 1.8; max-width: 680px; }
+
+.zones-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--mist); border: 1px solid var(--mist); margin-bottom: 50px; }
+.zone-cell { background: var(--paper); padding: 20px 18px; }
+.zone-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; line-height: 1; margin-bottom: 6px; }
+.zone-bpm { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); letter-spacing: .06em; margin-bottom: 8px; }
+.zone-desc { font-size: 12px; color: #4A4640; line-height: 1.6; }
+.z1c { color: #2A7A5A; } .z2c { color: var(--glacier); } .z3c { color: var(--amber); } .z4c { color: var(--danger); }
+
+.week-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 50px; }
+.week-table th {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; padding: 10px 14px; text-align: left;
+  border-bottom: 2px solid var(--ink); color: var(--stone); white-space: nowrap;
+}
+.week-table td { padding: 12px 14px; border-bottom: 1px solid var(--cream); color: var(--ink); vertical-align: top; line-height: 1.55; }
+.week-table td:first-child { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--glacier); letter-spacing: .04em; white-space: nowrap; }
+.wk-rest-row td { color: var(--stone); background: var(--cream); }
+.wk-phase { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; display: inline-block; padding: 2px 6px; border-radius: 2px; margin-bottom: 3px; }
+.wkp-build { background: var(--glacier-light); color: var(--summit); }
+.wkp-quality { background: var(--success-light); color: var(--success); }
+.wkp-rest { background: var(--cream); color: var(--stone); border: 1px solid var(--mist); }
+.wkp-alps { background: var(--amber-light); color: var(--amber); }
+
+.session-template { margin-bottom: 50px; }
+.session-template h3 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--summit); margin-bottom: 24px; }
+.session-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.session-card { background: var(--cream); border-radius: 3px; padding: 18px 20px; border-top: 3px solid transparent; }
+.sc-z1 { border-top-color: #2A7A5A; }
+.sc-z2 { border-top-color: var(--glacier); }
+.sc-long { border-top-color: var(--summit); }
+.sc-fuerza { border-top-color: var(--amber); }
+.sc-rest { border-top-color: var(--mist); }
+.session-card h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 10px; }
+.sc-z1 h4 { color: #2A7A5A; } .sc-z2 h4 { color: var(--glacier); }
+.sc-long h4 { color: var(--summit); } .sc-fuerza h4 { color: var(--amber); } .sc-rest h4 { color: var(--stone); }
+.session-card p { font-size: 12px; color: #4A4640; line-height: 1.65; }
+.session-card .dur { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+
+.post-alps { margin-top: 50px; padding-top: 40px; border-top: 2px solid var(--ink); }
+.post-alps h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--summit); margin-bottom: 24px; }
+.indicator-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+.indicator-card {
+  border: 1px solid var(--mist); border-radius: 3px; padding: 18px 22px;
+  border-left: 4px solid transparent;
+}
+.ic-good { border-left-color: var(--success); }
+.ic-warn { border-left-color: var(--amber); }
+.ic-go   { border-left-color: var(--glacier); }
+.indicator-card h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.ic-good h4 { color: var(--success); } .ic-warn h4 { color: var(--amber); } .ic-go h4 { color: var(--glacier); }
+.indicator-card p { font-size: 13px; color: var(--ink); line-height: 1.65; }
+.indicator-card .metric { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+
+/* ── MATERIAL TAB ── */
+.material-intro { padding: 60px 0 40px; border-bottom: 1px solid var(--mist); margin-bottom: 50px; }
+.material-intro h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 60px); color: var(--summit); margin-bottom: 16px; }
+.material-intro p { font-size: 15px; color: #4A4640; line-height: 1.8; max-width: 680px; }
+
+.material-section { margin-bottom: 50px; }
+.material-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--summit); margin-bottom: 20px; border-bottom: 1px solid var(--mist); padding-bottom: 8px; }
+
+.mat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--mist); border: 1px solid var(--mist); margin-bottom: 20px; }
+.mat-cell { background: var(--paper); padding: 16px 18px; }
+.mat-cat { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+.mat-items { font-size: 12px; color: var(--ink); line-height: 1.9; }
+.mat-note { font-size: 11px; color: var(--stone); font-style: italic; margin-top: 3px; }
+
+.budget-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+.budget-table th {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; padding: 10px 14px; text-align: left;
+  border-bottom: 2px solid var(--ink); color: var(--stone);
+}
+.budget-table th:last-child { text-align: right; }
+.budget-table td { padding: 10px 14px; border-bottom: 1px solid var(--cream); color: var(--ink); vertical-align: top; }
+.budget-table td:last-child { text-align: right; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--glacier); }
+.budget-table tr.total td { border-top: 2px solid var(--ink); font-weight: 700; color: var(--summit); background: var(--cream); }
+.budget-table tr.total td:last-child { color: var(--summit); }
+.budget-cat { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); background: var(--cream); }
+.budget-cat td { padding: 8px 14px 4px; border-bottom: none; font-size: 10px; }
+
+.food-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-bottom: 24px; }
+.food-card { background: var(--cream); border-radius: 3px; padding: 18px 20px; }
+.food-card h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--glacier); margin-bottom: 10px; }
+.food-card ul { list-style: none; }
+.food-card ul li { font-size: 12px; color: var(--ink); line-height: 1.8; padding-left: 12px; position: relative; }
+.food-card ul li::before { content: '—'; position: absolute; left: 0; color: var(--stone); }
+
+.car-note { padding: 16px 20px; background: var(--glacier-light); border-left: 3px solid var(--glacier); border-radius: 0 3px 3px 0; font-size: 13px; color: var(--summit); line-height: 1.7; margin-bottom: 30px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 760px) {
+  .masthead-content { padding: 40px 28px 50px; }
+  main { padding: 0 20px 80px; }
+  .section-intro { grid-template-columns: 1fr; gap: 10px; }
+  .section-num { font-size: 56px; }
+  .day-row { grid-template-columns: 76px 1px 1fr; gap: 0 18px; }
+  .summary-grid { grid-template-columns: 1fr 1fr; }
+  .split-view { grid-template-columns: 1fr; }
+  .sp-a { border-right: none; border-bottom: 1px solid var(--mist); }
+  .zones-grid { grid-template-columns: 1fr 1fr; }
+  .session-grid { grid-template-columns: 1fr; }
+  .indicator-grid { grid-template-columns: 1fr; }
+  .mat-grid { grid-template-columns: 1fr 1fr; }
+  .food-grid { grid-template-columns: 1fr; }
+  .scroll-hint { display: none; }
+  .tab-btn { padding: 14px 18px; font-size: 10px; }
+}
+</style>
+</head><body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-bg"></div>
+  <div class="topo-lines"></div>
+  <svg class="mountain-silhouette" viewBox="0 0 1200 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,400 L0,280 L80,260 L140,200 L200,230 L260,140 L310,180 L370,80 L420,120 L480,60 L540,100 L580,30 L630,70 L680,110 L740,50 L800,90 L860,140 L920,100 L980,160 L1040,120 L1100,180 L1160,200 L1200,220 L1200,400 Z" fill="rgba(200,220,232,1)"/>
+    <path d="M0,400 L0,340 L100,310 L200,290 L300,260 L380,230 L450,250 L520,210 L600,240 L680,200 L750,230 L840,210 L920,240 L1000,220 L1100,250 L1200,270 L1200,400 Z" fill="rgba(100,160,200,0.5)"/>
+  </svg>
+  <div class="masthead-content">
+    <div class="eyebrow">Plan de montaña · Julio 2026</div>
+    <h1>ALPES<br><span>26</span></h1>
+    <p class="masthead-sub">Tres bloques, diez días, cuatro cimas por encima de los cuatro mil. Preparación aclimatoria para el Pico Lenin.</p>
+    <div class="team-pills">
+      <div class="team-pill">Alex</div>
+      <div class="team-pill">Jorge</div>
+      <div class="team-pill">Nacho</div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="planning">Planning</button>
+  <button class="tab-btn" data-tab="metricas">Métricas</button>
+  <button class="tab-btn" data-tab="entrenamiento">Entrenamiento</button>
+  <button class="tab-btn" data-tab="material">Material &amp; Presupuesto</button>
+</nav>
+
+<!-- ════════════════════════════════════════════
+     TAB: PLANNING
+════════════════════════════════════════════ -->
+<div class="tab-panel active" id="tab-planning">
+<main>
+
+  <!-- BLOQUE I -->
+  <div class="section-intro">
+    <div><div class="section-label">Bloque I</div><div class="section-num">01</div></div>
+    <div>
+      <h2 class="section-heading">Écrins<br>17 — 19 Jul</h2>
+      <div class="section-dates">Alex + Jorge &nbsp;·&nbsp; Parc National des Écrins, Francia · Viernes–Domingo</div>
+    </div>
+  </div>
+
+  <div class="days-grid" id="block1">
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">17</div><div class="day-weekday">Viernes</div><div class="day-who who-ab">Alex · Jorge</div></div>
+      <div class="timeline-line"><div class="timeline-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Salida desde Guardiola · Subida directa al Refuge des Écrins</div>
+        <p class="day-desc">Salida desde Guardiola de Berguedà a las <strong>6:00h en punto</strong> — no más tarde. La ruta hasta Ailefroide son ~670km por la A-9 (Túnel del Puymorens) → Montpellier → A-51 → Briançon, unas <strong>7h15–7h30 de conducción</strong>. Llegada al Pré de Madame Carle hacia las 13:15–13:30h. Desde ahí, subida completa al Refuge des Écrins (3.170m): Glacier Blanc (1h30–2h) + tramo superior glaciar (2h30–3h) = 4h30–5h. <strong>Llegada al refugio entre las 17:30 y las 18:30h.</strong> Margen ajustado pero viable con luz hasta las 21:30h en julio. Reserva confirmada en el refugio.</p>
+        <span class="alt-tag alt-35k">3.170m — Refuge des Écrins (pernocta en refugio)</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-drive">▶ Coche</span> Guardiola de Berguedà → Ailefroide (Pré de Madame Carle)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~670 km</div><div class="rs-label">Distancia</div></div>
+            <div class="route-stat"><div class="rs-val">7h15–7h30</div><div class="rs-label">Conducción</div></div>
+            <div class="route-stat"><div class="rs-val">6:00h</div><div class="rs-label">Salida — sin margen</div></div>
+            <div class="route-stat"><div class="rs-val">~13:15h</div><div class="rs-label">Llegada Ailefroide</div></div>
+          </div>
+          <div class="route-times"><strong>Ruta:</strong> Guardiola → Berga → Túnel del Cadí → La Tour de Carol → A9 → Montpellier → A75 → Grenoble → A51 → Gap → Briançon → D994 → Ailefroide. Peaje Francia ~25€. <strong>Sin sesión de rápel este día</strong> — el margen horario no lo permite. Jorge practica de forma autónoma, así que no es crítico.</div>
+          <div class="route-links">
+            <a href="https://maps.app.goo.gl/guardiola-ailefroide" target="_blank" class="route-link rl-drive">Google Maps</a>
+          </div>
+        </div>
+        <div class="route-block" style="margin-top:10px;">
+          <div class="route-header"><span class="rh-type-walk">↑ A pie</span> Pré de Madame Carle (1.874m) → Refuge du Glacier Blanc → Refuge des Écrins (3.170m)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~9 km</div><div class="rs-label">Distancia</div></div>
+            <div class="route-stat"><div class="rs-val">+1.300 m</div><div class="rs-label">Desnivel</div></div>
+            <div class="route-stat"><div class="rs-val">4h30–5h</div><div class="rs-label">Tiempo subida</div></div>
+            <div class="route-stat"><div class="rs-val">13:30h</div><div class="rs-label">Inicio caminata</div></div>
+          </div>
+          <div class="route-times"><strong>Tramos:</strong> Pré de Madame Carle → Refuge du Glacier Blanc (2.542m): 1h30–2h, sendero bien marcado. Glacier Blanc → Refuge des Écrins: +2h30–3h por moraine y glaciar Blanc (crampones en el tramo superior). <strong>Si hay cualquier retraso en la carretera:</strong> plan B es pernoctar en el Refuge du Glacier Blanc (2.542m, a mitad de camino) en vez de forzar la llegada de noche al refugio superior.</div>
+          <div class="route-links">
+            <a href="https://www.wikiloc.com/mountaineering-trails/dome-de-neige-des-ecrins-depuis-le-pied-du-glacier-blanc-1874m-2-jours-126843" target="_blank" class="route-link">Track Wikiloc — acceso al refugio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">18</div><div class="day-weekday">Sábado</div><div class="day-who who-ab">Alex · Jorge</div></div>
+      <div class="timeline-line"><div class="timeline-dot summit-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Cima · Dôme de Neige / Barre des Écrins</div>
+        <p class="day-desc">Salida 3:00–3:30h desde el refugio. Dôme de Neige (4.009m) por vía normal — terreno glaciar, técnica de crampones en pendiente sostenida, gestión de cordada en altura real. Si la rimaye está transitable y el equipo tiene margen, continuación a la Barre des Écrins (4.102m): bergschrund y sección de hielo empinado. Descenso completo a Ailefroide por la tarde. <strong>Este día es el banco de pruebas real</strong> para evaluar el nivel del equipo en terreno técnico real — informa la confianza para el bloque del Lyskamm.</p>
+        <span class="alt-tag alt-4k">4.009m — Dôme de Neige &nbsp;/&nbsp; 4.102m — Barre des Écrins</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-walk">↑ Alpinismo</span> Refuge des Écrins (3.170m) → Dôme de Neige (4.009m) → Barre des Écrins (4.102m, opcional)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~7 km</div><div class="rs-label">Ida y vuelta</div></div>
+            <div class="route-stat"><div class="rs-val">+914 m</div><div class="rs-label">Desnivel al Dôme</div></div>
+            <div class="route-stat"><div class="rs-val">4–5h subida</div><div class="rs-label">Hasta el Dôme</div></div>
+            <div class="route-stat"><div class="rs-val">3:00–3:30h</div><div class="rs-label">Salida</div></div>
+          </div>
+          <div class="route-times"><strong>Tramos:</strong> Refugio → Col des Écrins (3.367m): ~1h por glaciar, encordarse al salir. Col des Écrins → Dôme de Neige (4.009m): ~2h30–3h, pendiente 30–40°, seracs a ambos lados. Dôme → Barre des Écrins: +30–45 min si la rimaye está transitable. <strong>Descenso:</strong> 2h30–3h. <strong>Llegada Ailefroide:</strong> ~14–15h. Exposición sur — salir antes de las 4h para evitar nieve blanda.</div>
+          <div class="route-links">
+            <a href="https://www.wikiloc.com/mountaineering-trails/dome-de-neige-des-ecrins-4015m-depuis-le-refuge-des-ecrins-3170m-13256338" target="_blank" class="route-link">Track Wikiloc — Dôme desde el refugio</a>
+            <a href="https://www.altituderando.com/Dome-de-Neige-des-Ecrins-4015m" target="_blank" class="route-link">Descripción — altituderando.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">19</div><div class="day-weekday">Domingo</div><div class="day-who who-ab">Alex · Jorge</div></div>
+      <div class="timeline-line"><div class="timeline-dot rest-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Recuperación activa · Sesión de rápel en Ailefroide</div>
+        <p class="day-desc">Descanso de la cima del día anterior por la mañana — ducha, comida decente, piernas arriba. Por la tarde, <strong>sesión de práctica de rápel de 2–3h</strong> en los bloques de la parte alta del camping, a pocos minutos a pie. Zona de aproximación mínima con vía equipada y varios rápeles en el descenso — exactamente el formato necesario para repasar anclajes, gestión de cuerda y descenso con material de alpinismo sin desgaste físico relevante. No compromete la recuperación antes de la llegada de Nacho.</p>
+        <span class="alt-tag alt-low">Camping des Chalets, Ailefroide</span>
+        <span class="alt-tag" style="background:var(--amber-light);color:var(--amber);margin-left:6px;">Práctica rápel · condición Lyskamm</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-walk">↑ Escalada/rápel</span> Camping Ailefroide → bloques de la parte alta del camping</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">5–10 min</div><div class="rs-label">Aproximación</div></div>
+            <div class="route-stat"><div class="rs-val">2–3h</div><div class="rs-label">Sesión</div></div>
+            <div class="route-stat"><div class="rs-val">~6 rápeles</div><div class="rs-label">En la vía de referencia</div></div>
+            <div class="route-stat"><div class="rs-val">Tarde</div><div class="rs-label">Horario flexible</div></div>
+          </div>
+          <div class="route-times"><strong>Zona:</strong> desde la parte alta del camping, camino que lleva hacia los refugios de Sele y del Pelvoux — a pocos metros se encuentra un gran bloque con vía equipada y bajada en rápel. Granito compacto, buen agarre, ideal para repetir el gesto sin desgastar. <strong>Foco de la sesión:</strong> montar anclaje desde cero, descenso con mochila cargada y botas de alpinismo, gestión del prusik de autoaseguro — el mismo escenario que se encontrará en el descenso del Lyskamm Oriental. Alternativa algo más alejada (~25-30 min aproximación) si la zona del camping está ocupada: sector de la Fissure d'Ailefroide.</div>
+          <div class="route-links">
+            <a href="https://climbingaway.fr/es/escuela-escalada/ailefroide-voies" target="_blank" class="route-link">Topo zonas de escalada — climbingaway.fr</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRÁNSITO -->
+  <div class="section-intro" style="margin-top:70px;">
+    <div><div class="section-label">Tránsito</div><div class="section-num" style="color:var(--mist);">—</div></div>
+    <div>
+      <h2 class="section-heading">Incorporación<br>Nacho · 20 Jul</h2>
+      <div class="section-dates">Los tres · Lunes · Bourg-Saint-Pierre, Valais · ~3h conducción desde Écrins</div>
+    </div>
+  </div>
+  <div class="days-grid" id="block-transit">
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">20</div><div class="day-weekday">Lunes</div><div class="day-who who-all">Los tres</div></div>
+      <div class="timeline-line"><div class="timeline-dot rest-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Incorporación de Nacho · Desplazamiento a Bourg-Saint-Pierre</div>
+        <p class="day-desc">Nacho se incorpora al equipo en Ailefroide. Desplazamiento conjunto a Bourg-Saint-Pierre (Valais, CH) — <strong>~3h de conducción</strong> por Briançon → Fréjus o Mont-Cenis → Aosta → Gran San Bernardo. Noche en camping. Alex y Jorge llegan ya descansados tras el día de recuperación del 19.</p>
+        <span class="alt-tag alt-low">~1.632m — Bourg-Saint-Pierre</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-drive">▶ Coche</span> Ailefroide → Bourg-Saint-Pierre (Valais, CH)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~230 km</div><div class="rs-label">Distancia</div></div>
+            <div class="route-stat"><div class="rs-val">~3h–3h15</div><div class="rs-label">Conducción</div></div>
+            <div class="route-stat"><div class="rs-val">Tarde</div><div class="rs-label">Salida flexible</div></div>
+            <div class="route-stat"><div class="rs-val">Vignette CH</div><div class="rs-label">~40 CHF peaje</div></div>
+          </div>
+          <div class="route-times"><strong>Ruta:</strong> Ailefroide → Briançon → N94 → Fréjus (Túnel ~14€) → Aosta → SS27 → Gran San Bernardo (Túnel ~15€) → Bourg-Saint-Pierre. Comprar la vignette suiza en la frontera si no se tiene (~40 CHF, válida 1 año).</div>
+          <div class="route-links">
+            <a href="https://maps.app.goo.gl/ailefroide-bourg-saint-pierre" target="_blank" class="route-link rl-drive">Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE II -->
+  <div class="section-intro" style="margin-top:70px;">
+    <div><div class="section-label">Bloque II</div><div class="section-num">02</div></div>
+    <div>
+      <h2 class="section-heading">Grand<br>Combin<br>21 — 23 Jul</h2>
+      <div class="section-dates">Alex · Jorge · Nacho &nbsp;·&nbsp; Valais, Suiza · 4.314m · PD · Martes–Jueves</div>
+    </div>
+  </div>
+  <div class="days-grid" id="block2">
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">21</div><div class="day-weekday">Martes</div><div class="day-who who-all">Los tres</div></div>
+      <div class="timeline-line"><div class="timeline-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Cabane de Valsorey · 3.030m</div>
+        <p class="day-desc">Ascensión al refugio desde Bourg-Saint-Pierre. Tarde tranquila — revisión de material, briefing de la ruta, descanso. <strong>Reserva confirmada.</strong> Segunda noche por encima de los 3.000m para Alex y Jorge; primera para Nacho.</p>
+        <span class="alt-tag alt-35k">3.030m — Cabane de Valsorey (pernocta en refugio)</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-walk">↑ A pie</span> Bourg-Saint-Pierre (1.632m) → Cabane de Valsorey (3.030m)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">11 km</div><div class="rs-label">Distancia ida</div></div>
+            <div class="route-stat"><div class="rs-val">+1.400 m</div><div class="rs-label">Desnivel</div></div>
+            <div class="route-stat"><div class="rs-val">3h30–4h30</div><div class="rs-label">Tiempo subida</div></div>
+            <div class="route-stat"><div class="rs-val">9:00–10:00h</div><div class="rs-label">Salida recomendada</div></div>
+          </div>
+          <div class="route-times"><strong>Tramos:</strong> Bourg-Saint-Pierre → Alpe de Cordonna (1.950m): ~1h, pista y prado. Cordonna → Chalet d'Amont (2.197m): ~45 min, sendero con alguna cadena en roca. Chalet d'Amont → Cabane: ~2h, sendero rocoso. <strong>Llegada al refugio:</strong> ~13–14h.</div>
+          <div class="route-links">
+            <a href="https://fr.wikiloc.com/itineraires-ski-de-rando/20140325-bourg-st-pierre-cabane-de-valsorey-6677247" target="_blank" class="route-link">Track Wikiloc — Bourg-Saint-Pierre → Valsorey</a>
+            <a href="https://www.valsorey.ch/fr/courses-randonnees" target="_blank" class="route-link">Rutas oficiales — valsorey.ch</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">22</div><div class="day-weekday">Miércoles</div><div class="day-who who-all">Los tres</div></div>
+      <div class="timeline-line"><div class="timeline-dot summit-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Cima · Grand Combin de Grafeneire · 4.314m</div>
+        <p class="day-desc">Salida a las 2:30–3:00h. Arête du Meitin → Combin de Valsorey (4.184m) → Grand Combin de Grafeneire (4.314m). Cordada de tres, Jorge como segundo entre Alex y Nacho. Terreno de nieve y mixto. Descenso completo y desplazamiento a Gressoney.</p>
+        <span class="alt-tag alt-4k">4.314m — Grand Combin de Grafeneire</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-walk">↑ Alpinismo</span> Cabane de Valsorey → Combin de Valsorey (4.184m) → Grand Combin de Grafeneire (4.314m)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">18 km</div><div class="rs-label">Ida y vuelta</div></div>
+            <div class="route-stat"><div class="rs-val">+1.290 m</div><div class="rs-label">Desnivel</div></div>
+            <div class="route-stat"><div class="rs-val">7h subida</div><div class="rs-label">Hasta la cima</div></div>
+            <div class="route-stat"><div class="rs-val">2:00–2:30h</div><div class="rs-label">Salida</div></div>
+          </div>
+          <div class="route-times"><strong>Tramos:</strong> Cabane → Col du Meitin (3.650m): ~3h, arista equipada con 26 puntos fijos, II–III UIAA. Col Meitin → Combin de Valsorey: ~1h. → Grafeneire: ~1h30. <strong>Descenso:</strong> 4–5h. <strong>Llegada Bourg-Saint-Pierre:</strong> ~17–18h. Exposición sur — no permanecer en cara glaciar tras las 10–11h.</div>
+          <div class="route-links">
+            <a href="https://www.wikiloc.com/hiking-trails/combin-de-valsorey-e-grand-combin-de-grafeneire-da-cabana-valsorey-138805145" target="_blank" class="route-link">Track Wikiloc — Grand Combin</a>
+            <a href="https://www.sac-cas.ch/fr/cabanes-et-courses/portail-des-courses-du-cas/combin-de-grafeneire-820/alpinisme/" target="_blank" class="route-link">Ficha técnica CAS</a>
+          </div>
+        </div>
+        <div class="route-block" style="margin-top:10px;">
+          <div class="route-header"><span class="rh-type-drive">▶ Coche</span> Bourg-Saint-Pierre → Gressoney La Trinité (mismo día, por la tarde)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~110 km</div><div class="rs-label">Distancia</div></div>
+            <div class="route-stat"><div class="rs-val">~1h45</div><div class="rs-label">Conducción</div></div>
+            <div class="route-stat"><div class="rs-val">~18:30h</div><div class="rs-label">Salida tras bajar</div></div>
+            <div class="route-stat"><div class="rs-val">~20:15h</div><div class="rs-label">Llegada estimada</div></div>
+          </div>
+          <div class="route-times"><strong>Ruta:</strong> Túnel Gran San Bernardo → Aosta → Verrès → valle del Lys → Gressoney. Jornada larga (cima + coche) — si la cima se complica o hay cansancio acumulado, mejor dormir una noche más en Bourg-Saint-Pierre y desplazarse el 23 por la mañana, comprimiendo el día de recuperación.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">23</div><div class="day-weekday">Jueves</div><div class="day-who who-all">Los tres</div></div>
+      <div class="timeline-line"><div class="timeline-dot rest-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Recuperación en Gressoney</div>
+        <p class="day-desc">Día de descanso en el camping Jolanda. Hidratación, buena comida, piernas arriba. El cuerpo integra la altitud del Combin. Repaso de material para el bloque del Lyskamm — confirmar gas, comida liofilizada y autonomía para la noche en el Balmenhorn.</p>
+        <span class="alt-tag alt-low">~1.638m — Camping Jolanda, Gressoney-Saint-Jean</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE III -->
+  <div class="section-intro" style="margin-top:70px;">
+    <div><div class="section-label">Bloque III</div><div class="section-num">03</div></div>
+    <div>
+      <h2 class="section-heading">Lyskamm<br>Oriental<br>24 — 26 Jul</h2>
+      <div class="section-dates">Alex · Jorge · Nacho &nbsp;·&nbsp; Monte Rosa, Valle de Aosta · 4.527m · AD− · Viernes–Domingo</div>
+    </div>
+  </div>
+  <div class="days-grid" id="block3">
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">24</div><div class="day-weekday">Viernes</div><div class="day-who who-all">Los tres</div></div>
+      <div class="timeline-line"><div class="timeline-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Telesilla a Punta Indren · Subida al Bivacco Giordano (Balmenhorn)</div>
+        <p class="day-desc">Telesilla desde Staffal hasta Punta Indren (3.275m) — coger el <strong>primer cable de la mañana (8:00–8:30h)</strong> para maximizar la opción de encontrar plaza en el bivac. Desde Punta Indren, subida de 3h–3h30 pasando por el Rifugio Città di Mantova y la Capanna Gnifetti hasta el Bivacco Felice Giordano, en las rocas del Balmenhorn (4.167m). <strong>Llegada estimada hacia las 11:30–12:30h.</strong></p>
+        <span class="alt-tag alt-4k">4.167m — Bivacco Felice Giordano (Balmenhorn)</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-walk">↑ Alpinismo</span> Punta Indren (3.275m) → Mantova → Gnifetti → Col del Lys → Balmenhorn (4.167m)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~6 km</div><div class="rs-label">Distancia</div></div>
+            <div class="route-stat"><div class="rs-val">+892 m</div><div class="rs-label">Desnivel</div></div>
+            <div class="route-stat"><div class="rs-val">3h–3h30</div><div class="rs-label">Tiempo subida</div></div>
+            <div class="route-stat"><div class="rs-val">8:00–8:30h</div><div class="rs-label">Primer telesilla</div></div>
+          </div>
+          <div class="route-times"><strong>Tramos:</strong> Punta Indren → Rifugio Città di Mantova (3.498m): ~1h30, glaciar de Indren + traverso (crampones). Mantova → Capanna Gnifetti (3.647m): ~30–45 min, glaciar del Garstelet. Gnifetti → Balmenhorn (4.167m): ~2h, por el itinerario del Col del Lys, desviando a la derecha hacia las rocas del Balmenhorn — tramo final con corda fissa, ~15m de trepada facilitada con anillos de hierro.</div>
+          <div class="route-links">
+            <a href="https://it.wikipedia.org/wiki/Bivacco_Felice_Giordano" target="_blank" class="route-link">Ficha completa — Wikipedia IT</a>
+            <a href="https://www.summitpost.org/bivacco-felice-giordano-balmenhorn/150641" target="_blank" class="route-link">Descripción + acceso — SummitPost</a>
+          </div>
+        </div>
+        <div class="warn-box" style="margin-top:14px;">
+          <span class="warn-icon">▲</span>
+          <span><strong>Solo 6 plazas, sin guardián, sin reserva posible.</strong> En verano suele estar concurrido. <strong>Red de seguridad:</strong> si al llegar está completo, bajar a dormir a la Capanna Gnifetti o al Rifugio Mantova (servicio completo, llamar antes de subir para confirmar plaza: Gnifetti +39 0163 78015 · Mantova +39 351 459 4158). En ese caso el objetivo del día 25 pasa a ser la Punta Gnifetti (4.554m) en lugar del Lyskamm Oriental. Llevar también tienda ligera de repuesto como segunda red de seguridad.</span>
+        </div>
+        <div class="lodge-note" style="margin-top:10px;">Sin gas en el bivac — llevar hornillo propio, cartuchos y comida liofilizada para cena y desayuno. Agua de fusión de nieve/hielo — calcular tiempo extra para fundir.</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">25</div><div class="day-weekday">Sábado</div><div class="day-who who-all">Los tres</div></div>
+      <div class="timeline-line"><div class="timeline-dot summit-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Cima · Lyskamm Oriental · 4.527m</div>
+        <p class="day-desc">Salida desde el Balmenhorn ya a 4.167m — no hace falta madrugar tanto como desde la Gnifetti. Arista Este, una de las más aéreas de los Alpes a esta altitud: escalada en mixto y nieve, exposición sostenida, pasos de III en roca. <strong>Los rappeles son en el descenso, no en la subida</strong> — un paso de roca de 5–8m a 2/3 de la bajada de la arista, donde la mayoría de cordadas rappela sobre anclaje natural construido en el momento (bloque o fisura, sin equipo fijo). Descenso de vuelta al Balmenhorn o directo a Gnifetti/Mantova según el plan de bajada.</p>
+        <span class="alt-tag alt-4k">4.527m — Lyskamm Oriental (Ostgipfel)</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-walk">↑ Alpinismo AD−</span> Balmenhorn (4.167m) → Col del Lys → Naso del Lyskamm → Lyskamm Oriental (4.527m)</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">+360 m</div><div class="rs-label">Desnivel</div></div>
+            <div class="route-stat"><div class="rs-val">3–4h</div><div class="rs-label">Subida + arista</div></div>
+            <div class="route-stat"><div class="rs-val">3–4h</div><div class="rs-label">Bajada + rápel</div></div>
+            <div class="route-stat"><div class="rs-val">4:00–4:30h</div><div class="rs-label">Salida</div></div>
+          </div>
+          <div class="route-times"><strong>Dónde está el rápel:</strong> en el descenso de la arista Este, ~2/3 de la bajada — salto de roca de 5–8m, técnicamente desescalable pero rappelado por la mayoría con crampones y cansancio acumulado. Exactamente el escenario practicado de forma autónoma por Jorge antes del viaje. <strong>Salida más tardía que desde la Gnifetti</strong> porque ya se duerme a 4.167m — menos desnivel y menos tiempo de aproximación.</div>
+          <div class="route-links">
+            <a href="https://es.wikiloc.com/rutas-alpinismo/lyskamm-traversata-ovest-est-22908932" target="_blank" class="route-link">Track Wikiloc — zona Lyskamm</a>
+            <a href="https://alta-via.fr/guide/conditions-alpinisme-escalade/lyskamm.html" target="_blank" class="route-link">Condiciones reales — alta-via.fr</a>
+          </div>
+        </div>
+        <div class="route-block" style="margin-top:10px;">
+          <div class="route-header"><span class="rh-type-walk">↓ Descenso</span> Balmenhorn/Gnifetti → Punta Indren → Telesilla → Gressoney</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~6 km</div><div class="rs-label">Distancia</div></div>
+            <div class="route-stat"><div class="rs-val">3h–3h30</div><div class="rs-label">Bajada a pie</div></div>
+            <div class="route-stat"><div class="rs-val">16:00h</div><div class="rs-label">Último telesilla</div></div>
+            <div class="route-stat"><div class="rs-val">~17–18h</div><div class="rs-label">Llegada Gressoney</div></div>
+          </div>
+          <div class="route-links">
+            <a href="https://www.sentierigressoney.it/impianti-risalita/" target="_blank" class="route-link">Horarios telesilla 2026</a>
+          </div>
+        </div>
+
+        <div class="activation-box" style="margin-top:16px; border-color:var(--success);">
+          <h4 style="color:var(--success);">Plan alternativo si el Lyskamm Oriental no es viable</h4>
+          <p>Si el Balmenhorn está completo, las condiciones de la arista no son buenas, o el equipo prefiere reducir la exposición técnica, la alternativa desde Punta Indren no es solo la Punta Gnifetti — hay una travesía de varios "cuatromiles" fáciles que evita además la masificación de la Gnifetti: <strong>Pirámide Vincent (4.215m)</strong>, considerada el cuatromil más accesible desde la zona, combinable con <strong>Corno Nero (4.322m)</strong> y/o el propio <strong>Balmenhorn (4.167m)</strong> sin necesidad de pernoctar allí. Terreno de esquí de travesía, sin dificultad técnica añadida, completable en una sola jornada de 8–10h desde Punta Indren. Es la opción de menor riesgo que mantiene el mismo rango de altitud (4.100–4.300m) sin la arista aérea ni el rápel del Oriental.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-meta"><div class="day-date">26</div><div class="day-weekday">Domingo</div><div class="day-who who-rest">Retorno</div></div>
+      <div class="timeline-line"><div class="timeline-dot rest-dot"></div></div>
+      <div class="day-content">
+        <div class="day-title">Descenso · Retorno a Guardiola</div>
+        <p class="day-desc">Retorno en coche a Guardiola — <strong>~8h30–9h de conducción</strong> por Aosta → Fréjus o Mont-Blanc → Lyon → A-9. Saliendo a las 9h se llega a Guardiola sobre las 18–19h. Fin del bloque alpino — diez días, tres bloques, cuatro cimas. Jorge sale hacia Bilbao el lunes 27.</p>
+        <span class="alt-tag alt-rest">Descenso · Fin de bloque</span>
+        <div class="route-block">
+          <div class="route-header"><span class="rh-type-drive">▶ Coche</span> Gressoney La Trinité → Guardiola de Berguedà</div>
+          <div class="route-stats">
+            <div class="route-stat"><div class="rs-val">~870 km</div><div class="rs-label">Distancia</div></div>
+            <div class="route-stat"><div class="rs-val">8h30–9h</div><div class="rs-label">Conducción + paradas</div></div>
+            <div class="route-stat"><div class="rs-val">9:00h</div><div class="rs-label">Salida recomendada</div></div>
+            <div class="route-stat"><div class="rs-val">18–19h</div><div class="rs-label">Llegada Guardiola</div></div>
+          </div>
+          <div class="route-times"><strong>Ruta:</strong> Gressoney → Aosta → A5 → Fréjus (Túnel ~55€) o Mont-Blanc (Túnel ~65€) → A43 → Lyon → A7 → Orange → A9 → Narbona → AP7 → Barcelona → C-16 → Guardiola.</div>
+          <div class="route-links">
+            <a href="https://maps.app.goo.gl/gressoney-guardiola" target="_blank" class="route-link rl-drive">Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ════════════════════════════════════════════
+     TAB: MÉTRICAS
+════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-metricas">
+<main>
+  <div class="summary-section" style="border-top:none; padding-top:60px; margin-top:0;">
+    <h2 class="summary-title">Resumen del bloque alpino</h2>
+    <div class="summary-grid">
+      <div class="summary-cell"><div class="sv">4</div><div class="sd">noches &gt;3.000m (Alex y Jorge)</div></div>
+      <div class="summary-cell"><div class="sv">4.527m</div><div class="sd">techo máximo — Lyskamm Oriental</div></div>
+      <div class="summary-cell"><div class="sv">+527m</div><div class="sd">por encima del récord de altitud previo</div></div>
+      <div class="summary-cell"><div class="sv">3</div><div class="sd">cimas por encima de 4.000m</div></div>
+      <div class="summary-cell"><div class="sv">10 días</div><div class="sd">en los Alpes</div></div>
+      <div class="summary-cell"><div class="sv">9/10</div><div class="sd">valor aclimatatorio para el Lenin</div></div>
+    </div>
+    <div class="principle-list">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-text"><strong>El Balmenhorn mejora la aclimatación respecto al plan original.</strong> Dormir a 4.167m la noche antes de la cima — 500m por encima de la Gnifetti — es exactamente el tipo de estímulo de altura que más interesa de cara al Lenin, aunque sacrifica la red de seguridad de un refugio con servicio.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-text"><strong>El ciclo sube–baja–recupera se mantiene intacto.</strong> Cada bloque termina con un día de descenso al valle: Ailefroide (19), Gressoney (23). Ese estímulo hipóxico con recuperación es el protocolo que más rendimiento da para la aclimatación al Lenin.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-text"><strong>La cima de los Écrins se adelanta al 18.</strong> El día 19 pasa de ser día de cima a día de recuperación pura — el equipo llega más descansado a la incorporación de Nacho y al bloque del Combin.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <div class="principle-text"><strong>Sin refugio Gnifetti, el Lyskamm pasa de alternativa condicional a objetivo principal.</strong> La red de seguridad (Gnifetti o Mantova) sigue activa si el Balmenhorn está ocupado, pero ya no depende del rendimiento en los Écrins — la decisión se simplifica a disponibilidad de plaza el mismo día.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANÁLISIS POR BLOQUE -->
+  <div class="comp-section">
+    <h3>Análisis por bloque · esfuerzo y beneficio aclimatatorio</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Bloque</th>
+          <th style="color:var(--glacier);">Días · Técnico</th>
+          <th style="color:var(--amber);">Problema estructural</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>ÉCRINS</td><td>17–19 jul · PD, glaciar + roca con crampones</td><td>Llegada ajustada el 17 (sin margen para fallos en carretera)</td></tr>
+        <tr><td>TRÁNSITO</td><td>20 jul · Incorporación Nacho</td><td>Ninguno — día de descanso puro tras adelantar la cima del 18</td></tr>
+        <tr><td>GRAND COMBIN</td><td>21–23 jul · PD, arista equipada + glaciar</td><td>Jornada del 22 larga si se encadena cima + traslado a Gressoney el mismo día</td></tr>
+        <tr><td>LYSKAMM</td><td>24–26 jul · AD−, arista mixta + rápel en descenso</td><td>Solo 6 plazas en el Balmenhorn, sin reserva — depende de llegar temprano</td></tr>
+      </tbody>
+    </table>
+
+    <div class="bar-section">
+      <h4>Esfuerzo acumulado y valor aclimatatorio · plan recompuesto</h4>
+      <div class="bar-group">
+        <div class="bar-plan-label">Plan completo — Écrins + Grand Combin + Lyskamm Oriental (vía Balmenhorn)</div>
+        <div class="bar-row">
+          <span class="bar-label">Esfuerzo físico</span>
+          <div class="bar-track"><div class="bar-fill bf-fisico" style="width:82%" data-width="82"></div></div>
+          <span class="bar-val">8.2</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Esfuerzo mental</span>
+          <div class="bar-track"><div class="bar-fill bf-mental" style="width:75%" data-width="75"></div></div>
+          <span class="bar-val">7.5</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Beneficio aclimatatorio</span>
+          <div class="bar-track"><div class="bar-fill bf-acclim" style="width:90%" data-width="90"></div></div>
+          <span class="bar-val">9.0</span>
+        </div>
+      </div>
+
+      <div class="bar-group" style="margin-top:28px;">
+        <div class="bar-plan-label" style="color:var(--success);">Red de seguridad — si el Balmenhorn está ocupado: Punta Gnifetti desde Gnifetti/Mantova</div>
+        <div class="bar-row">
+          <span class="bar-label">Esfuerzo físico</span>
+          <div class="bar-track"><div class="bar-fill bf-fisico" style="width:70%" data-width="70"></div></div>
+          <span class="bar-val">7.0</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Esfuerzo mental</span>
+          <div class="bar-track"><div class="bar-fill bf-mental" style="width:50%" data-width="50"></div></div>
+          <span class="bar-val">5.0</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Beneficio aclimatatorio</span>
+          <div class="bar-track"><div class="bar-fill bf-acclim" style="width:78%" data-width="78"></div></div>
+          <span class="bar-val">7.8</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:24px;">
+      El plan vía Balmenhorn sube el valor aclimatatorio global de 8/10 (plan original con Gnifetti) a 9/10, porque añade 500m de techo de pernocta sin cambiar sustancialmente el resto del itinerario. El coste es la pérdida de la red de seguridad de un refugio gestionado para esa noche concreta — mitigado manteniendo Gnifetti/Mantova como plan B activo y llevando tienda de repuesto.
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ════════════════════════════════════════════
+     TAB: ENTRENAMIENTO
+════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-entrenamiento">
+<main>
+  <div class="train-intro">
+    <h2>Plan de entrenamiento<br>junio — julio</h2>
+    <p>Seis semanas para invertir la pirámide de zonas, construir la base aeróbica necesaria y llegar a los Alpes con el cuerpo listo para sacar partido del estímulo en altura. El objetivo no es llegar en pico de forma — es llegar con base sólida y frescos.</p>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--stone); margin-bottom:16px;">Zonas de frecuencia cardíaca · referencia Alex (VO₂max 61)</div>
+  <div class="zones-grid">
+    <div class="zone-cell">
+      <div class="zone-name z1c">Z1</div>
+      <div class="zone-bpm">&lt;130 ppm · conversacional</div>
+      <div class="zone-desc">Nariz. Frases de 10 palabras sin pausas. Subes cuestas andando si es necesario. <strong>50% del volumen semanal.</strong> Donde ocurre la mayor parte de la adaptación mitocondrial.</div>
+    </div>
+    <div class="zone-cell">
+      <div class="zone-name z2c">Z2</div>
+      <div class="zone-bpm">130–148 ppm · aeróbico</div>
+      <div class="zone-desc">Puedes hablar en frases cortas. Ritmo sostenido sin aceleraciones. <strong>30% del volumen.</strong> La sesión de Z2 semanal es la más importante para la adaptación aeróbica de base.</div>
+    </div>
+    <div class="zone-cell">
+      <div class="zone-name z3c">Z3</div>
+      <div class="zone-bpm">148–162 ppm · umbral</div>
+      <div class="zone-desc">Zona trampa. Alto coste de recuperación, bajo retorno de adaptación para alpinismo. <strong>Máximo 12% del volumen.</strong> En este plan aparece solo de forma residual en los largos con pendiente.</div>
+    </div>
+    <div class="zone-cell">
+      <div class="zone-name z4c">Z4</div>
+      <div class="zone-bpm">&gt;162 ppm · anaeróbico</div>
+      <div class="zone-desc">Fuera del plan hasta después de los Alpes. Con la base aeróbica actual, añadir calidad alta antes de construir la base empeora la adaptación mitocondrial y sube el riesgo de sobreentrenamiento.</div>
+    </div>
+  </div>
+
+  <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--stone); margin: 40px 0 16px;">Progresión semanal · 2 jun → 16 jul</div>
+  <table class="week-table">
+    <thead>
+      <tr>
+        <th>Semana</th>
+        <th>Volumen</th>
+        <th>Distribución zonas</th>
+        <th>Desnivel propuesto</th>
+        <th>Fuerza</th>
+        <th>Foco</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sem 1<br>2–8 jun</td>
+        <td>3h</td>
+        <td>Z1 80% · Z2 20%</td>
+        <td>3 salidas. Sin desnivel obligatorio. Terreno llano o rolado.</td>
+        <td>2× tren inferior: sentadilla, peso muerto, zancadas con mochila 5kg</td>
+        <td><span class="wk-phase wkp-build">Construcción</span><br>Z1 estricto. Test del habla como guía.</td>
+      </tr>
+      <tr>
+        <td>Sem 2<br>9–15 jun</td>
+        <td>3h45</td>
+        <td>Z1 75% · Z2 25%</td>
+        <td>Largo fin de semana: 400–500m D+. Primer contacto con terreno de trail.</td>
+        <td>2× tren inferior + 1× core (plancha, hip thrust, puente glúteo)</td>
+        <td><span class="wk-phase wkp-build">Construcción</span><br>Largo continuo 70–80 min en Z1.</td>
+      </tr>
+      <tr>
+        <td>Sem 3<br>16–22 jun</td>
+        <td>4h</td>
+        <td>Z1 72% · Z2 28%</td>
+        <td>Largo: 600m D+. Introduce mochila 5kg en el largo.</td>
+        <td>2× tren inferior + 1× core</td>
+        <td><span class="wk-phase wkp-build">Construcción</span><br>Primera sesión Z2 controlada (20 min).</td>
+      </tr>
+      <tr>
+        <td>Sem 4<br>23–29 jun</td>
+        <td>4h30</td>
+        <td>Z1 68% · Z2 28% · Z3 4%</td>
+        <td>Largo: 700–800m D+ con mochila 8kg. Subidas de pista en Z1, corres en llano.</td>
+        <td>2× tren inferior cargado + 1× core + 1× hombros/espalda (remo, press militar)</td>
+        <td><span class="wk-phase wkp-quality">Calidad</span><br>Z2 sostenido 30 min. Carga de mochila progresiva.</td>
+      </tr>
+      <tr>
+        <td>Sem 5<br>30 jun–6 jul</td>
+        <td>5h</td>
+        <td>Z1 65% · Z2 30% · Z3 5%</td>
+        <td>Largo: 900–1000m D+ con mochila 10kg. Si es posible: Montseny, Berguedà o similar.</td>
+        <td>2× tren inferior + 1× core + 1× hombros/espalda</td>
+        <td><span class="wk-phase wkp-quality">Calidad</span><br>Semana de mayor carga del ciclo. Z2 40 min.</td>
+      </tr>
+      <tr class="wk-rest-row">
+        <td>Sem 6<br>7–13 jul</td>
+        <td>3h</td>
+        <td>Z1 90% · Z2 10%</td>
+        <td>Sin largos. 3 salidas cortas de 45–55 min, terreno suave.</td>
+        <td>1× tren inferior suave (sin carga añadida)</td>
+        <td><span class="wk-phase wkp-rest">Descarga</span><br>Reducir volumen a la mitad. Sin sesiones de calidad.</td>
+      </tr>
+      <tr class="wk-rest-row">
+        <td>14–16 jul</td>
+        <td>~30 min</td>
+        <td>Z1 100%</td>
+        <td>Una sola salida de 30 min en llano. Nada más.</td>
+        <td>—</td>
+        <td><span class="wk-phase wkp-alps">Activación</span><br>Llegar a los Alpes descansado.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="session-template">
+    <h3>Arquitectura semanal tipo (semanas 4–5)</h3>
+    <div class="session-grid">
+      <div class="session-card sc-rest">
+        <h4>Lunes</h4>
+        <div class="dur">Descanso</div>
+        <p>Movilidad articular, estiramientos. Sin carrera. El lunes absorbe la carga del largo del fin de semana.</p>
+      </div>
+      <div class="session-card sc-z1">
+        <h4>Martes · Z1 técnico</h4>
+        <div class="dur">45–55 min</div>
+        <p>Trail con desnivel si es posible. Ritmo de conversación estricto. Si la cuesta sube el pulso, la caminas. Tiempo en pies, no velocidad.</p>
+      </div>
+      <div class="session-card sc-z2">
+        <h4>Miércoles · Z2 sostenido</h4>
+        <div class="dur">40–50 min</div>
+        <p>Sesión clave. Terreno llano o suave. Puedes hablar en frases cortas. FC estable, sin aceleraciones. Aquí está el 80% del beneficio semanal.</p>
+      </div>
+      <div class="session-card sc-fuerza">
+        <h4>Jueves · Fuerza</h4>
+        <div class="dur">45 min</div>
+        <p>Sentadilla búlgara, peso muerto rumano, zancadas con carga, hip thrust, core antirotacional. Tren inferior prioritario — es lo que mueve la mochila en pendiente.</p>
+      </div>
+      <div class="session-card sc-z1">
+        <h4>Viernes · Z1 corto</h4>
+        <div class="dur">30 min opcional</div>
+        <p>Solo si hay buenas sensaciones tras el jueves. Z1 suave en llano. Si hay fatiga residual: descanso.</p>
+      </div>
+      <div class="session-card sc-long">
+        <h4>Sáb o Dom · Largo D+</h4>
+        <div class="dur">90–120 min</div>
+        <p>Sesión más importante de la semana. Trail con desnivel real, mochila cargada (5→10kg). Z1 estricto todo el tiempo — si hace falta caminar el 60%, se camina. La duración importa más que la distancia.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-alps">
+    <h3>Indicadores a monitorizar al terminar los Alpes</h3>
+    <p style="font-size:14px; color:#4A4640; line-height:1.75; margin-bottom:28px; max-width:680px;">Antes de salir hacia el Lenin (agosto), estos son los indicadores que dicen si la aclimatación alpina ha funcionado y si el cuerpo está listo para el salto a 7.000m.</p>
+    <div class="indicator-grid">
+      <div class="indicator-card ic-go">
+        <h4>SpO₂ en reposo</h4>
+        <div class="metric">≥96%</div>
+        <p>Tu línea base actual es 98%. Al bajar de los Alpes debería mantenerse igual. Si está por debajo de 94% en valle, hay algo que revisar antes de salir.</p>
+      </div>
+      <div class="indicator-card ic-good">
+        <h4>Calidad del sueño post-Alpes</h4>
+        <div class="metric">&gt;7h / noche</div>
+        <p>Después de los Alpes necesitas al menos 10–12 días de sueño de calidad antes de subir al avión. El Lenin empieza el 14 de agosto — tienes margen justo si los Alpes terminan el 26 de julio.</p>
+      </div>
+      <div class="indicator-card ic-good">
+        <h4>Ausencia de síntomas AMS</h4>
+        <div class="metric">0 episodios</div>
+        <p>Si en los Alpes has tenido cefalea que no cede con ibuprofeno, náuseas o insomnio en refugio o bivac, anótalo. No es un problema, pero cambia la estrategia farmacológica para el Lenin.</p>
+      </div>
+      <div class="indicator-card ic-warn">
+        <h4>Fatiga muscular residual</h4>
+        <div class="metric">&lt;3/10</div>
+        <p>Tren inferior: si al bajar del coche en Barcelona las piernas están a más de 3/10 de fatiga subjetiva, necesitas más días de recuperación antes de cualquier carga de entrenamiento de mantenimiento.</p>
+      </div>
+      <div class="indicator-card ic-go">
+        <h4>Frecuencia cardíaca en reposo</h4>
+        <div class="metric">± 5 ppm de base</div>
+        <p>Una FC en reposo elevada al volver (más de 5 ppm sobre tu media) indica que el cuerpo sigue en estrés. No entrenes hasta que vuelva a la línea base — esa señal vale más que cualquier plan escrito.</p>
+      </div>
+      <div class="indicator-card ic-warn">
+        <h4>Analítica pre-Lenin</h4>
+        <div class="metric">Pedir al volver</div>
+        <p>Hemograma + ferritina al regresar de los Alpes. Si la ferritina está por debajo de 50 ng/ml, suplementar de inmediato — quedan 2–3 semanas para el Lenin y cada día cuenta para la eritropoyesis.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ════════════════════════════════════════════
+     TAB: MATERIAL & PRESUPUESTO
+════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-material">
+<main>
+  <div class="material-intro">
+    <h2>Material &<br>Presupuesto</h2>
+    <p>Viaje en el coche de Jorge. Campings en los valles, vivac y bivac en altura donde sea viable. Comida liofilizada en montaña, opciones económicas en valle, con margen para cenar bien y tomar alguna cerveza en los días de recuperación. El bloque del Lyskamm añade autonomía completa para la noche en el Balmenhorn.</p>
+  </div>
+
+  <div class="car-note">
+    <strong>Coche de Jorge · reparto de gasolina y peajes entre tres.</strong> Ruta: Guardiola → Ailefroide (~670km) → Bourg-Saint-Pierre (~230km) → Gressoney (~110km) → Guardiola (~870km). Total aproximado: 1.880km. Con consumo medio de 7–8L/100km y precio 1,70€/L, el coste de combustible es de ~225–255€ — <strong>75–85€ por persona.</strong> Peajes estimados (CH + túneles FR/IT): ~95–115€ total, ~32–38€/persona.
+  </div>
+
+  <!-- MATERIAL TÉCNICO -->
+  <div class="material-section">
+    <h3>Material técnico · por persona</h3>
+    <div class="mat-grid">
+      <div class="mat-cell">
+        <div class="mat-cat">Glaciar y nieve (todos los bloques)</div>
+        <div class="mat-items">
+          Piolet<br>
+          Crampones de 12 puntos<br>
+          Arnés de escalada<br>
+          Casco<br>
+          2× mosquetones de seguro con freno<br>
+          1× plaqueta o tubo (descensor)<br>
+          Cuerda (compartida por cordada) 50–60m 8.5mm<br>
+          Prusik × 2 (6mm, 60cm)<br>
+          Polea pequeña (para crevasse)<br>
+          Anclajes de nieve: 2× picket o 1× deadman
+        </div>
+      </div>
+      <div class="mat-cell">
+        <div class="mat-cat">Vestimenta · capas</div>
+        <div class="mat-items">
+          Capa base lana merino (top + bottom)<br>
+          Forro polar o chaqueta softshell media<br>
+          Chaqueta hardshell (membrana)<br>
+          Pantalón hardshell<br>
+          Guantes finos + guantes de abrigo<br>
+          Gorro lana + buff<br>
+          Gafas glaciar (categoría 4)<br>
+          Botas de alpinismo B2 compatibles con crampones<br>
+          Polainas
+        </div>
+      </div>
+      <div class="mat-cell">
+        <div class="mat-cat">Vivac y camping</div>
+        <div class="mat-items">
+          Tienda ultraligera (compartida entre 2–3: MSR Hubba o similar)<br>
+          Saco de dormir (confort −5°C mínimo para vivacs en altura)<br>
+          Sábana de seda o forro interior<br>
+          Colchoneta aislante (imprescindible en vivac sobre roca/nieve)<br>
+          Hornillo de gas + cartucho (camping y vivac autónomo)<br>
+          Cazo de titanio 1L<br>
+          Frontal + pilas de reserva<br>
+          Mochila 40–50L<br>
+          Cubierta impermeable de mochila<br>
+          Bastones de trail plegables<br>
+          Navaja o multiherramienta<br>
+          Botiquín: ibuprofeno, esparadrapo, vendas, antiséptico, aguja de succión
+        </div>
+      </div>
+      <div class="mat-cell">
+        <div class="mat-cat">Adicional rápel · Lyskamm Oriental</div>
+        <div class="mat-items">
+          Descensor tubular (Petzl Reverso o similar) — uno por persona<br>
+          Prusik personal 6mm, 60cm, debajo del descensor<br>
+          Mosquetón HMS de rosca clásica (no automático — la virola se congela)<br>
+          Cordino de 6mm, 4–5m, para dejar en anclajes de abandono<br>
+          Friends y nuts pequeños para construir anclajes en roca sin spits<br>
+          Cintas exprés × 4
+        </div>
+      </div>
+      <div class="mat-cell">
+        <div class="mat-cat">Autonomía Balmenhorn · noche 24 jul</div>
+        <div class="mat-items">
+          Hornillo + cartucho de gas propio (el bivac no tiene gas)<br>
+          Comida liofilizada para cena y desayuno (no hay servicio de comedor)<br>
+          Cazo para fundir nieve/hielo — único origen de agua<br>
+          Saco de dormir de confort −10°C o mejor (4.167m, sin calefacción)<br>
+          Tienda ligera de repuesto si las 6 plazas del bivac están ocupadas
+        </div>
+      </div>
+      <div class="mat-cell">
+        <div class="mat-cat">Hidratación y nutrición en ruta</div>
+        <div class="mat-items">
+          2× botellas 1L o sistema de hidratación<br>
+          Pastillas potabilizadoras o filtro Sawyer<br>
+          Geles energéticos × 4–6 por jornada de cima<br>
+          Barritas de cereales / frutos secos<br>
+          Electrolitos en polvo
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIVAC VIABILIDAD -->
+  <div class="material-section">
+    <h3>Refugios y bivac · viabilidad punto a punto</h3>
+    <div class="mat-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="mat-cell" style="border-left:4px solid var(--success);">
+        <div class="mat-cat" style="color:var(--success);">✓ Confirmado · Refuge des Écrins (noche 17 jul · 3.170m)</div>
+        <div class="mat-items">Reserva confirmada para pernocta en refugio. Sin pago con tarjeta — llevar efectivo. Teléfono: +33 9 82 12 70 85 / +33 6 07 79 89 96.</div>
+      </div>
+      <div class="mat-cell" style="border-left:4px solid var(--success);">
+        <div class="mat-cat" style="color:var(--success);">✓ Confirmado · Cabane de Valsorey (noche 21 jul · 3.030m)</div>
+        <div class="mat-items">Reserva confirmada para pernocta en refugio. Teléfono cabane: +41 27 787 11 22.</div>
+      </div>
+      <div class="mat-cell" style="border-left:4px solid var(--amber);">
+        <div class="mat-cat" style="color:var(--amber);">⚠ Sin reserva posible · Bivacco Felice Giordano / Balmenhorn (noche 24 jul · 4.167m)</div>
+        <div class="mat-items">6 plazas, sin guardián, sin sistema de reserva. Llegar con el primer telesilla (8:00–8:30h) para maximizar opción de plaza. Autonomía completa: hornillo, gas, comida, agua de fusión.</div>
+      </div>
+      <div class="mat-cell" style="border-left:4px solid var(--glacier);">
+        <div class="mat-cat" style="color:var(--glacier);">↗ Red de seguridad · Capanna Gnifetti / Rifugio Mantova</div>
+        <div class="mat-items">Si el Balmenhorn está ocupado, bajar a dormir aquí (servicio completo). Llamar antes de subir para confirmar: Gnifetti +39 0163 78015 · Mantova +39 351 459 4158. En ese caso el objetivo del 25 pasa a ser la Punta Gnifetti (4.554m).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMPINGS EN VALLE -->
+  <div class="material-section">
+    <h3>Campings en valle · opciones concretas</h3>
+    <div class="mat-grid" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="mat-cell">
+        <div class="mat-cat">Ailefroide · base Écrins (noche 19, recuperación)</div>
+        <div class="mat-items">
+          <strong>Camping des Chalets d'Ailefroide</strong><br>
+          ~10–12€/persona/noche<br>
+          A pie de montaña, ambiente de equipo. Aseos, agua corriente, zona de cocina.<br>
+          <span class="mat-note">Ailefroide, 05340 Pelvoux</span>
+        </div>
+      </div>
+      <div class="mat-cell">
+        <div class="mat-cat">Valais · base Grand Combin (noche 20)</div>
+        <div class="mat-items">
+          <strong>Camping du Levant — Sembrancher</strong><br>
+          ~12€/persona/noche<br>
+          A 15 min en coche de Bourg-Saint-Pierre. Alternativa: zona libre en Bourg-Saint-Bernard.<br>
+          <span class="mat-note">Sembrancher, Valais, CH</span>
+        </div>
+      </div>
+      <div class="mat-cell">
+        <div class="mat-cat">Gressoney · base Lyskamm (noche 23)</div>
+        <div class="mat-items">
+          <strong>Camping Jolanda — Gressoney-Saint-Jean</strong><br>
+          ~11€/persona/noche<br>
+          3km por debajo de Gressoney La Trinité, junto al río Lys.<br>
+          <span class="mat-note">Gressoney-Saint-Jean, Valle d'Aosta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMIDA -->
+  <div class="material-section">
+    <h3>Estrategia de alimentación</h3>
+    <div class="food-grid">
+      <div class="food-card">
+        <h4>Refugios con servicio · Écrins y Valsorey</h4>
+        <ul>
+          <li>Media pensión incluida en la reserva del refugio</li>
+          <li>Café del refugio antes de la salida de madrugada (1.5–3€)</li>
+          <li>Sin pago con tarjeta — llevar efectivo en ambos</li>
+        </ul>
+      </div>
+      <div class="food-card">
+        <h4>Noche autónoma · Balmenhorn (24 jul)</h4>
+        <ul>
+          <li>Liofilizados Trek'n Eat o Travellunch (13–16€/sobre): cena y desayuno completos</li>
+          <li>Avena instantánea + proteína en polvo + frutos secos: desayuno rápido antes de la cima</li>
+          <li>Comprar todos los liofilizados en España (Barrabes, Tradeinn): 20–30% más barato</li>
+          <li>Calcular tiempo extra para fundir nieve — única fuente de agua en el bivac</li>
+        </ul>
+      </div>
+      <div class="food-card">
+        <h4>Días de jornada de cima · en ruta</h4>
+        <ul>
+          <li>Geles (Maurten o GU) × 4–6 por jornada</li>
+          <li>Barritas de dátiles o Clif Bar × 2–3</li>
+          <li>Frutos secos y chocolate negro 85%</li>
+          <li>Thermos con té o caldo caliente (muy importante por encima de 4.000m)</li>
+        </ul>
+      </div>
+      <div class="food-card">
+        <h4>Días de recuperación en valle · la recompensa</h4>
+        <ul>
+          <li>Cena en restaurante local: pasta, risotto, polenta, fondue valdostana — 15–25€/persona</li>
+          <li>Cerveza local (Chouffe en Valais, Menabrea en Aosta): 3–5€</li>
+          <li>Supermercado para picnic de mediodía: bocadillo + fruta + yogur, ~5€</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESUPUESTO -->
+  <div class="material-section">
+    <h3>Presupuesto estimado · por persona</h3>
+    <table class="budget-table">
+      <thead>
+        <tr><th>Concepto</th><th>Detalle</th><th>€ / persona</th></tr>
+      </thead>
+      <tbody>
+        <tr class="budget-cat"><td colspan="3">TRANSPORTE</td></tr>
+        <tr><td>Gasolina (reparto entre 3)</td><td>~1.880km, 7.5L/100km, 1.70€/L</td><td>80€</td></tr>
+        <tr><td>Peajes y túneles (Francia, Suiza, Italia)</td><td>Vignette CH + Fréjus/Mont-Cenis + Gran San Bernardo</td><td>35€</td></tr>
+
+        <tr class="budget-cat"><td colspan="3">ALOJAMIENTO</td></tr>
+        <tr><td>Refuge des Écrins (1 noche, 17 jul)</td><td>Media pensión ~65€</td><td>65€</td></tr>
+        <tr><td>Camping Ailefroide (1 noche, 19 jul)</td><td>~11€/noche</td><td>11€</td></tr>
+        <tr><td>Camping Sembrancher (1 noche, 20 jul)</td><td>~12€/noche</td><td>12€</td></tr>
+        <tr><td>Cabane de Valsorey (1 noche, 21 jul)</td><td>Media pensión ~70€</td><td>70€</td></tr>
+        <tr><td>Camping Jolanda (1 noche, 23 jul)</td><td>~11€/noche</td><td>11€</td></tr>
+        <tr><td>Bivacco Giordano (1 noche, 24 jul)</td><td>Aportación voluntaria CAI ~10€</td><td>10€</td></tr>
+
+        <tr class="budget-cat"><td colspan="3">ALIMENTACIÓN</td></tr>
+        <tr><td>Comida en ruta y supermercados</td><td>~8€/día × 10 días</td><td>80€</td></tr>
+        <tr><td>Cenas en restaurante (2 recuperaciones)</td><td>~20€/cena × 2</td><td>40€</td></tr>
+        <tr><td>Liofilizados (compra en España)</td><td>4 sobres × 14€ — cena/desayuno Balmenhorn</td><td>56€</td></tr>
+        <tr><td>Geles y barritas (jornadas de cima)</td><td>~15€ × 3 jornadas</td><td>45€</td></tr>
+        <tr><td>Cervezas y extras valle</td><td>~5€/día × 2 días</td><td>10€</td></tr>
+
+        <tr class="budget-cat"><td colspan="3">SEGUROS Y VARIOS</td></tr>
+        <tr><td>Seguro de montaña con rescate en helicóptero</td><td>FEDME, BARRABES o similar</td><td>25€</td></tr>
+        <tr><td>Telesilla Punta Indren (Gressoney, ida/vuelta)</td><td>~16€</td><td>16€</td></tr>
+        <tr><td>Cartucho de gas extra para autonomía Balmenhorn</td><td>~6€</td><td>6€</td></tr>
+        <tr><td>Imprevistos y varios</td><td>—</td><td>40€</td></tr>
+
+        <tr class="total"><td colspan="2">TOTAL ESTIMADO POR PERSONA</td><td>~612€</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--stone); font-style:italic; margin-top:8px;">El presupuesto sube respecto al plan con la Gnifetti porque se mantienen las dos reservas de refugio confirmadas (Écrins, Valsorey) y se añade autonomía completa para el Balmenhorn. Aun así, queda por debajo del plan original con tres refugios de servicio completo gracias al ahorro en la noche del Lyskamm.</p>
+  </div>
+
+</main>
+</div>
+
+<!-- FOOTER -->
+<footer style="text-align:center; padding:60px 40px; font-family:'DM Mono',monospace; font-size:11px; color:var(--stone); letter-spacing:.1em; border-top:1px solid var(--mist);">
+  ALPES · JULIO 2026 &nbsp;·&nbsp; ALEX · JORGE · NACHO &nbsp;·&nbsp; PREPARACIÓN PICO LENIN 7.134M
+</footer>
+
+<script>
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + target).classList.add('active');
+      window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop - 2, behavior: 'smooth' });
+      initReveal();
+    });
+  });
+
+  function initReveal() {
+    const rows = document.querySelectorAll('.tab-panel.active .day-row:not(.visible)');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    rows.forEach((row, i) => {
+      row.style.transitionDelay = (i % 5 * 70) + 'ms';
+      obs.observe(row);
+    });
+  }
+  initReveal();
+
+  function animateBars() {
+    document.querySelectorAll('.tab-panel.active .bar-fill').forEach(bar => {
+      const w = bar.getAttribute('data-width');
+      if (w) { bar.style.width = '0'; setTimeout(() => bar.style.width = w + '%', 100); }
+    });
+  }
+  tabBtns.forEach(btn => btn.addEventListener('click', () => setTimeout(animateBars, 200)));
+  setTimeout(animateBars, 400);
+</script>
+</body>
+</html>
